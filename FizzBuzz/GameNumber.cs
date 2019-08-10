@@ -11,21 +11,26 @@ namespace FizzBuzz
             this.Number = value;
         }
 
+        public GameNumber()
+        {
+            throw new NotImplementedException();
+        }
+
         public string Say()
         {
-            if (Isdivisible(3) && Isdivisible(5))
+            if (IsDivisible(3) && IsDivisible(5))
                 return "FizzBuzz";
 
-            if (Isdivisible(3))
+            if (IsDivisible(3))
                 return "Fizz";
 
-            if (Isdivisible(5))
+            if (IsDivisible(5))
                 return "Buzz";
 
             return Number.ToString();
         }
 
-        private bool Isdivisible(int baseVal)
+        private bool IsDivisible(int baseVal)
         {
             return Number % baseVal == 0;
         }

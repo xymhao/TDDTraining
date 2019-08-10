@@ -27,7 +27,7 @@ namespace FizzBuzzTest
 
         [TestCase(5)]
         [TestCase(10)]
-        public void Shoulde_Say_Buzz_Value_Is_divisible_5(int value)
+        public void Should_Say_Buzz_Value_Is_divisible_5(int value)
         {
             AssertGameNumber("Buzz", value);
         }
