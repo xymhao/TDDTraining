@@ -38,10 +38,22 @@ namespace FizzBuzzTest
             AssertGameNumber("FizzBuzz", value);
         }
 
-        private static void AssertGameNumber(string expectedWork, int value)
+        [Test]
+        public void Should_Say_Fizz_Whern_Value_Contains_3()
+        {
+            AssertGameNumber("Fizz", 13);
+        }
+
+        [Test]
+        public void Should_Say_Buzz_Whern_Value_Contains_5()
+        {
+            AssertGameNumber("Buzz", 51);
+        }
+
+        private static void AssertGameNumber(string expectedWords, int value)
         {
             var game = new GameNumber(value);
-            Assert.AreEqual(expectedWork, game.Say());
+            Assert.AreEqual(expectedWords, game.Say());
         }
     }
 }

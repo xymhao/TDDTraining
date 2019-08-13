@@ -13,7 +13,6 @@ namespace FizzBuzz
 
         public GameNumber()
         {
-            throw new NotImplementedException();
         }
 
         public string Say()
@@ -21,7 +20,7 @@ namespace FizzBuzz
             if (IsDivisible(3) && IsDivisible(5))
                 return "FizzBuzz";
 
-            if (IsDivisible(3))
+            if (IsDivisible(3) || IsContainsNumber())
                 return "Fizz";
 
             if (IsDivisible(5))
@@ -30,9 +29,15 @@ namespace FizzBuzz
             return Number.ToString();
         }
 
+        private bool IsContainsNumber()
+        {
+            return Number.ToString().Contains("3");
+        }
+
         private bool IsDivisible(int baseVal)
         {
             return Number % baseVal == 0;
         }
+
     }
 }
