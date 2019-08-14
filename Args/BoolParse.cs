@@ -4,7 +4,7 @@ namespace Args
 {
     public class BoolParse : ObjectParse
     {
-        public BoolParse(SchemaInfo schemaInfo, string[] argsArray, string flag) : base(schemaInfo, argsArray, flag)
+        public BoolParse(SchemaInfo schemaInfo, ArgsParser argsParser, string flag) : base(schemaInfo, argsParser, flag)
         {
         }
 

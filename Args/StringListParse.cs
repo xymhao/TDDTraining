@@ -6,7 +6,7 @@ namespace Args
 {
     public class StringListParse : ObjectParse
     {
-        public StringListParse(SchemaInfo schemaInfo, string[] argsArray, string flag) : base(schemaInfo, argsArray, flag)
+        public StringListParse(SchemaInfo schemaInfo, ArgsParser argsParser, string flag) : base(schemaInfo, argsParser, flag)
         {
         }
 

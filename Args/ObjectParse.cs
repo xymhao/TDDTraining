@@ -4,22 +4,21 @@ namespace Args
 {
     public abstract class ObjectParse
     {
-        protected ObjectParse(SchemaInfo schemaInfo, string[] argsArray, string flag)
+        protected ObjectParse(SchemaInfo schemaInfo, ArgsParser argsParser, string flag)
         {
             SchemaInfo = schemaInfo;
-            ArgsArray = argsArray;
-            Value = GetArgsValue(flag, out bool exist);
-            Exist = exist;
+            ArgsParser = argsParser;
+            Value = GetArgsValue(flag);
             Flag = flag;
         }
 
         protected SchemaInfo SchemaInfo { get; }
 
-        public string[] ArgsArray { get; }
+        public ArgsParser ArgsParser { get; }
 
         protected string Value { get; }
 
-        protected bool Exist { get; }
+        protected bool Exist { get; set; }
 
         public string Flag { get; }
 
@@ -39,19 +38,12 @@ namespace Args
         /// 获取默认值
         /// </summary>
         /// <param name="flag"></param>
-        /// <param name="exist"></param>
         /// <returns></returns>
-        private string GetArgsValue(string flag, out bool exist)
+        private string GetArgsValue(string flag)
         {
-            exist = false;
-            foreach (string arg in ArgsArray)
-            {
-                var arr = arg.Split(" ");
-                if (arr[0] != flag) continue;
-                exist = true;
-                return arr.Length > 1 ? arr[1] : null;
-            }
-            return null;
+            var value = ArgsParser.GetValue(flag, out bool exist);
+            Exist = exist;
+            return value;
         }
 
         protected abstract void ValidateType();

@@ -7,9 +7,11 @@ namespace Args
     {
         public Type ArgsType { get; set; }
 
-        public Object DefaultValue { get; set; }
+        public object DefaultValue { get; set; }
 
-        public SchemaInfo(string type)
+        public string Flag { get; set; }
+
+        public SchemaInfo(string type, string flag)
         {
             switch (type)
             {
@@ -30,6 +32,8 @@ namespace Args
                     DefaultValue = new List<int>(); break;
                 default: throw new ArgumentException("类型不存在！");
             }
+
+            Flag = flag;
         }
     }
 }

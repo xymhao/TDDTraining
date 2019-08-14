@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Args
 {
-    public class ArgsSchema
+    public class ArgsSchema : Dictionary<string, SchemaInfo>
     {
-        public Dictionary<string, SchemaInfo> SchemaDict { get; set; } = new Dictionary<string, SchemaInfo>();
+        private Dictionary<string, SchemaInfo> SchemaDict { get; set; } = new Dictionary<string, SchemaInfo>();
 
         public ArgsSchema(string schemaText)
         {
@@ -15,14 +15,15 @@ namespace Args
             {
                 var key = s.Split(":")[0];
                 var type = s.Split(":")[1];
-                SchemaDict.Add(key, new SchemaInfo(type));
+                Add(key, new SchemaInfo(type, key));
             }
         }
 
 
         public SchemaInfo GetSchemaInfo(string flag)
         {
-            return SchemaDict.GetValueOrDefault(flag);
+            TryGetValue(flag, out SchemaInfo info);
+            return info;
         }
     }
 }

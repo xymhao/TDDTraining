@@ -6,7 +6,7 @@ namespace Args
 {
     public class IntListParse : ObjectParse
     {
-        public IntListParse(SchemaInfo info, string[] argsArray, string flag) : base(info, argsArray, flag)
+        public IntListParse(SchemaInfo info, ArgsParser argsParser, string flag) : base(info, argsParser, flag)
         {
 
         }

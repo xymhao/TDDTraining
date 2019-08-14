@@ -29,7 +29,7 @@ namespace ArgsTest
             string argsText = "-l -p 8080 -d /usr/logs";
             string schemaText = "l:bool p:int d:string";
 
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            var argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
 
             //3.根据argsValues, argsSchema获取value
             var args = new Args.Args(argsArray, argsSchema);
@@ -41,7 +41,7 @@ namespace ArgsTest
         {
             string argsText = "-l -p";
             string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            ArgsParser argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
 
             //3.根据argsValues, argsSchema获取value
             var args = new Args.Args(argsArray, argsSchema);
@@ -54,7 +54,7 @@ namespace ArgsTest
 
             string argsText = "-p";
             string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            ArgsParser argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
 
             //3.根据argsValues, argsSchema获取value
             var args = new Args.Args(argsArray, argsSchema);
@@ -66,7 +66,7 @@ namespace ArgsTest
         public void Should_Return_Exception_Whern_Input_IntArgs_Error(string argsText)
         {
             string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            ArgsParser argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
 
             //3.根据argsValues, argsSchema获取value
             var args = new Args.Args(argsArray, argsSchema);
@@ -78,7 +78,7 @@ namespace ArgsTest
         {
             string argsText = "-g this,is,a,list -d 1,2,-3,5";
             string schemaText = "g:List<string> d:List<int>";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            ArgsParser argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
             var args = new Args.Args(argsArray, argsSchema);
             var expectValue = new List<string>() {"this", "is", "a", "list"};
             Assert.AreEqual(expectValue, args.GetValue("g"));
@@ -90,50 +90,17 @@ namespace ArgsTest
         {
             string argsText = "-g this,is,a,list -d 1,2,-3,5";
             string schemaText = "g:List<string> d:List<int>";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
+            ArgsParser argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
             var args = new Args.Args(argsArray, argsSchema);
             var expectValue = new List<int>() {1, 2, -3, 5};
             Assert.AreEqual(expectValue, args.GetValue("d"));
         }
 
-        [Test]
-        public void Should_Return_True_Whern()
-        {
-            string argsText = "-l -p asd -d /usr/logs";
-            string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
-            SchemaInfo info = argsSchema.GetSchemaInfo("l");
-            ObjectParse parse = new BoolParse(info, argsArray, "l");
-            Assert.AreEqual(true, parse.GetValue());
-        }
-
-        [TestCase(true, "-l -p asd -d /usr/logs")]
-        [TestCase(false, "-p asd -d /usr/logs")]
-        [TestCase(false, "-l false -p asd -d /usr/logs")]
-        [TestCase(true, "-l true -p asd -d /usr/logs")]
-        public void Should_Return_True_Whern_Input_Param(bool expectValue, string argsText)
-        {
-            string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
-            SchemaInfo info = argsSchema.GetSchemaInfo("l");
-            ObjectParse parse = new BoolParse(info, argsArray, "l");
-            Assert.AreEqual(expectValue, parse.GetValue());
-        }
-
-        [TestCase("-l asd -p asd -d /usr/logs")]
-        public void Should_Return_Exception_Whern_Input_ErrorBool(string argsText)
-        {
-            string schemaText = "l:bool p:int d:string";
-            string[] argsArray = InitArgsParam(argsText, schemaText, out ArgsSchema argsSchema);
-            SchemaInfo info = argsSchema.GetSchemaInfo("l");
-            ObjectParse parse = new BoolParse(info, argsArray, "l");
-            Assert.Throws<ArgumentException>(() => parse.GetValue(), "-p:不是有效的bool类型！");
-        }
-        public static string[] InitArgsParam(string argsText, string schemaText, out ArgsSchema argsSchema)
+        public static ArgsParser InitArgsParam(string argsText, string schemaText, out ArgsSchema argsSchema)
         {
             //1.把命令行字符串拆分成main函数可用的字符串数组
-            var argsArray = ArgsParser.Parser(argsText);
-            Assert.Positive(argsArray.Length);
+            var argsArray = new ArgsParser(argsText);
+            Assert.IsNotNull(argsArray);
 
             //2. 把字符串形式的Schema解析成对象
             argsSchema = new ArgsSchema(schemaText);

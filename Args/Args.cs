@@ -5,14 +5,14 @@ namespace Args
 {
     public class Args
     {
-        public string[] ArgsArray { get; set; }
+        public ArgsParser ArgsParser { get; set; }
 
         public ArgsSchema ArgsSchema { get; set; }
 
 
-        public Args(string[] argsArray, ArgsSchema argsSchema)
+        public Args(ArgsParser argsParser, ArgsSchema argsSchema)
         {
-            ArgsArray = argsArray;
+            ArgsParser = argsParser;
             ArgsSchema = argsSchema;
         }
 
@@ -34,15 +34,15 @@ namespace Args
             switch (schemaInfo.ArgsType)
             {
                 case Type t when t == typeof(bool):
-                    return new BoolParse(schemaInfo, ArgsArray, flag);
+                    return new BoolParse(schemaInfo, ArgsParser, flag);
                 case Type t when t == typeof(int):
-                    return new IntParse(schemaInfo, ArgsArray, flag);
+                    return new IntParse(schemaInfo, ArgsParser, flag);
                 case Type t when t == typeof(string):
-                    return new StringParse(schemaInfo, ArgsArray, flag);
+                    return new StringParse(schemaInfo, ArgsParser, flag);
                 case Type t when t == typeof(List<string>):
-                    return new StringListParse(schemaInfo, ArgsArray, flag);
+                    return new StringListParse(schemaInfo, ArgsParser, flag);
                 case Type t when t == typeof(List<int>):
-                    return  new IntListParse(schemaInfo, ArgsArray, flag);
+                    return  new IntListParse(schemaInfo, ArgsParser, flag);
                 default: throw new ArgumentException($"-{flag}:命令无效");
             }
         }

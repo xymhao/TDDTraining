@@ -4,7 +4,7 @@ namespace Args
 {
     public class IntParse : ObjectParse
     {
-        public IntParse(SchemaInfo schemaInfo, string[] argsArray, string flag) : base(schemaInfo, argsArray, flag)
+        public IntParse(SchemaInfo schemaInfo, ArgsParser argsParser, string flag) : base(schemaInfo, argsParser, flag)
         {
         }
 
