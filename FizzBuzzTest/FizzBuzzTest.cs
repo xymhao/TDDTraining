@@ -47,7 +47,7 @@ namespace FizzBuzzTest
         [Test]
         public void Should_Say_Buzz_Whern_Value_Contains_5()
         {
-            AssertGameNumber("Buzz", 51);
+            AssertGameNumber("FizzBuzz", 51);
         }
 
         private static void AssertGameNumber(string expectedWords, int value)

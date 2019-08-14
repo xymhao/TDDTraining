@@ -5,7 +5,7 @@ namespace Args
 {
     public class ArgsParser
     {
-        public readonly Dictionary<string, string> ArgsDict = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> ArgsDict = new Dictionary<string, string>();
 
         public ArgsParser(string argsText)
         {
@@ -18,7 +18,7 @@ namespace Args
                 if (i + 1 < argsSplit.Length)
                 {
                     string nextArg = argsSplit[i+1];
-                    if (!nextArg.StartsWith("-") || IsNumber(nextArg))
+                    if (!nextArg.StartsWith("-", StringComparison.Ordinal) || IsNumber(nextArg))
                     {
                         value = nextArg;
                         i++;

@@ -16,7 +16,7 @@ namespace ArgsTest
         {
             var argsText = "-l true -p 8080 -d /usr/logs";
             var argsParse = new ArgsParser(argsText);
-            Assert.AreEqual(expect, argsParse.GetValue(flag, out bool exist));
+            Assert.AreEqual(expect, argsParse.GetArgsValue(flag, out bool exist));
             Assert.IsTrue(exist);
         }
 
@@ -25,7 +25,7 @@ namespace ArgsTest
         {
             var argsText = "-l -p 8080 -d /usr/logs";
             var argsParse = new ArgsParser(argsText);
-            Assert.IsNull( argsParse.GetValue("l", out bool exist));
+            Assert.IsNull( argsParse.GetArgsValue("l", out bool exist));
             Assert.True(exist);
         }
 
@@ -34,11 +34,10 @@ namespace ArgsTest
         {
             var argsText = "-l -p -9 -d /usr/logs";
             var argsParse = new ArgsParser(argsText);
-            Assert.AreEqual("-9",argsParse.GetValue("p", out bool existP));
+            Assert.AreEqual("-9",argsParse.GetArgsValue("p", out bool existP));
             Assert.IsTrue(existP);
-            Assert.AreEqual("/usr/logs", argsParse.GetValue("d", out bool existD));
+            Assert.AreEqual("/usr/logs", argsParse.GetArgsValue("d", out bool existD));
             Assert.IsTrue(existD);
-
         }
 
     }

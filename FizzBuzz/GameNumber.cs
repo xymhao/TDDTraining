@@ -20,18 +20,18 @@ namespace FizzBuzz
             if (IsDivisible(3) && IsDivisible(5))
                 return "FizzBuzz";
 
-            if (IsDivisible(3) || IsContainsNumber())
+            if (IsDivisible(3) || IsContainsNumber(3))
                 return "Fizz";
 
-            if (IsDivisible(5))
+            if (IsDivisible(5) || IsContainsNumber(5))
                 return "Buzz";
 
             return Number.ToString();
         }
 
-        private bool IsContainsNumber()
+        private bool IsContainsNumber(int number)
         {
-            return Number.ToString().Contains("3");
+            return Number.ToString().Contains(number.ToString());
         }
 
         private bool IsDivisible(int baseVal)
